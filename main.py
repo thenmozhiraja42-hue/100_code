@@ -1,3 +1,12 @@
+"""
+Mathematical Algorithms & Utilities Suite:
+1. Prime Number Generation (starting from 101)
+2. Fibonacci Sequence (1-indexed calculation)
+3. Collatz Conjecture Step Counter
+4. Multiplication Table Generator (1 to 10)
+5. Number Guessing Game (target=10)
+"""
+
 import math
 from typing import List
 
@@ -38,8 +47,11 @@ def generate_primes(count: int, start_from: int = 101) -> List[int]:
     Returns:
         List[int]: List of generated prime numbers.
     """
+    if count <= 0:
+        return []
+
     primes: List[int] = []
-    num = start_from
+    num = max(2, start_from)
     while len(primes) < count:
         if is_prime(num):
             primes.append(num)
@@ -103,22 +115,55 @@ def collatz_steps(n: int) -> int:
     return steps
 
 
+# ------------------------------------------------------------------------------
+# 4. Multiplication Table Generator
+# ------------------------------------------------------------------------------
+def print_multiplication_table(n: int) -> None:
+    """Print multiplication table for `n` from 1 to 10."""
+    for i in range(1, 11):
+        print(f"{n} x {i} = {n * i}")
+
+
+# ------------------------------------------------------------------------------
+# 5. Number Guessing Game
+# ------------------------------------------------------------------------------
+def number_guessing_game(target: int = 10) -> None:
+    """Loop until the input guess matches the target number."""
+    while True:
+        try:
+            guess = int(input())
+            if guess == target:
+                print("correct")
+                break
+            else:
+                print("wrong try again")
+        except (ValueError, EOFError):
+            break
+
+
+# ------------------------------------------------------------------------------
+# Main Execution Entry Point
+# ------------------------------------------------------------------------------
 def main() -> None:
-    """Run all three algorithms sequentially based on user input."""
+    """Execute Prime Generator, Fibonacci, Collatz, Multiplication Table, and Guessing Game."""
     try:
-        n = int(input())
-        print_primes_from_101(n)
-        
+        n_prime = int(input())
+        print_primes_from_101(n_prime)
+
         n_fib = int(input())
         print(get_fibonacci(n_fib))
 
         n_collatz = int(input())
         print(collatz_steps(n_collatz))
+
+        n_table = int(input())
+        print_multiplication_table(n_table)
+
+        number_guessing_game(target=10)
+
     except (ValueError, EOFError):
         pass
 
 
 if __name__ == "__main__":
     main()
-
-
